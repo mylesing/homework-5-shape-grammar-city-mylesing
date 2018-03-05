@@ -1,48 +1,36 @@
 
 # Project 5: Shape Grammar
 
-For this assignment you'll be building directly off of the L-system code you
-wrote last week.
+Emiliya Al Yafei • PennKey: alyafei
 
-**Goal:** to model an urban environment using a shape grammar.
+Welcome to Discount Lumiose™! We didn't have the money to give our residents windows or doors, so it's actually a prison.
+We throw our prisoners off of the top of the Traffic Cone of Death if they try to escape.
+But at least it's always sunny here!
 
-**Note:** We’re well aware that a nice-looking procedural city is a lot of work for a single week. Focus on designing a nice building grammar. The city layout strategies outlined in class (the extended l-systems) are complex and not expected. We will be satisfied with something reasonably simple, just not a uniform grid!
+##Structure & Grammar Rules:
+I have a Shape class which stores the building's current floor position, rotation, and scale. Similarly to an L-System, I parse through a string and call functions based on the current character. The city becomes larger with each iteration as the grammar expands.
 
-## Symbol Node (5 points)
-Modify your symbol node class to include attributes necessary for rendering, such as
-- Associated geometry instance
-- Position
-- Scale
-- Anything else you may need
+**Rules:**
+- 'B' : draw base
+- '+' : add random number of stories
+- 'S' : shift in a random direction and draw a connecting building
+- 'X / Y' : add roof
+- 'F' : scale the building randomly
+- '[/]' : push or pop off of the stack to store / get back old position
 
-## Grammar design (55 points)
-- Design at least five shape grammar rules for producing procedural buildings. Your buildings should vary in geometry and decorative features (beyond just differently-scaled cubes!). At least some of your rules should create child geometry that is in some way dependent on its parent’s state. (20 points)
-    - Eg. A building may be subdivided along the x, y, or z axis into two smaller buildings
-    - Some of your rules must be designed to use some property about its location. (10 points)
-    - Your grammar should have some element of variation so your buildings are non-deterministic.  Eg. your buildings sometimes subdivide along the x axis, and sometimes the y. (10 points)   
-- Write a renderer that will interpret the results of your shape grammar parser and adds the appropriate geometry to your scene for each symbol in your set. (10 points)
+**Expansion:**
+- 'B' -> 'B'
+- '+' -> '++'
+- 'S'-> 'S++'
+- 'X' -> 'Y'
+- 'Y' -> 'X'
 
-## Create a city (30 points)
-- Add a ground plane or some other base terrain to your scene (0 points, come on now)
-- Using any strategy you’d like, procedurally generate features that demarcate your city into different areas in an interesting and plausible way (Just a uniform grid is neither interesting nor plausible). (20 points)
-    - Suggestions: roads, rivers, lakes, parks, high-population density
-    - Note, these features don’t have to be directly visible, like high-population density, but they should somehow be visible in the appearance or arrangement of your buildings. Eg. High population density is more likely to generate taller buildings
-- Generate buildings throughout your city, using information about your city’s features. Color your buildings with a method that uses some aspect of its state. Eg. Color buildings by height, by population density, by number of rules used to generate it. (5 points)
-- Document your grammar rules and general approach in the readme. (5 points)
-- ???
-- Profit.
+##Appearance:
 
-## Make it interesting (10)
-Experiment! Make your city a work of art.
+![](city1.png)
+![](city2.png)
 
-## Warnings:
-If you're not careful with how many draw calls you make in a single `tick()`,
-you can very easily blow up your CPU with this assignment. As with the L-system,
-try to group geometry into one VBO so the run-time of your program outside of
-the time spent generating the city is fast.
+The buildings grow larger in all dimensions as we come out of the city center. As they get taller, their peaks turn a different color -- the more yellow the building is, the taller.
 
-## Suggestions for the overachievers:
-Go for a very high level of decorative detail!
-Place buildings with a strategy such that buildings have doors and windows that are always accessible.
-Generate buildings with coherent interiors
-If dividing your city into lots, generate odd-shaped lots and create building meshes that match their shape .i.e. rather than working with cubes, extrude upwards from the building footprints you find to generate a starting mesh to subdivide rather than starting with platonic geometry.
+We give our prisoners some leasure space by providing them with empty, concrete parks where they can enjoy themselves as they wish!
+
